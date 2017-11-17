@@ -9,6 +9,7 @@ public class Text {
 	String plaintext;
 	public  List<Integer> ip = new ArrayList<Integer>();
 	public static List<Integer> binarytext = new ArrayList<Integer>();
+	public static List<Integer> permutedtext = new ArrayList<Integer>();
 	
 	public Text(String text) {
 	this.plaintext = text;
@@ -21,16 +22,37 @@ public class Text {
 			59, 51, 43, 35, 27, 19, 11, 3,
 			61, 53, 45, 37, 29, 21, 13, 5,
 			63, 55, 47, 39, 31, 23, 15, 7));
+	this.texttobytes();
 	}
 	
 	public void texttobytes() {
-		binarytext = (int)plaintext.getBytes(UTF_8);
+		byte[] bytes = plaintext.getBytes();
+		  StringBuilder binary = new StringBuilder();
+		  for (byte b : bytes)
+		  {
+		     int val = b;
+		     for (int i = 0; i < 8; i++)
+		     {
+		        binary.append((val & 128) == 0 ? 0 : 1);
+		        val <<= 1;
+		     }
+		     binary.append(' ');
+		  }
+		for (int j = 0; j < binary.length(); j++) {
+	    	int c = Character.digit(binary.charAt(j), 10);
+	    	if(c!=-1)
+	    		binarytext.add(c);
+	    }
+		System.out.println(binarytext);
+		this.Permutation();
 	}
+		
 	
 	public void Permutation() {
 		for(int i=0;i<ip.size(); i++) {
-			permutedkey.add(binarykey.get(ip.get(i)-1));
+			permutedtext.add(binarytext.get(ip.get(i)-1));
 		}
+		System.out.println(permutedtext);
 	}
 
 }

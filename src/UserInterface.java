@@ -80,10 +80,11 @@ public class UserInterface {
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				plaintext= txt_key.getText();
+				plaintext= txt_plaintext.getText();
 				key = txt_key.getText();
 				Key newkey = new Key(key);
-				newkey.getpc1();
+				//newkey.getpc1();
+				Text newtext = new Text(plaintext);
 				
 			}
 		});
