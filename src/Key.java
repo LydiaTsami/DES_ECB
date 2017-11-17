@@ -37,53 +37,60 @@ public class Key {
 	}
 	
 	public void hexToBinary(String hex) {
+		List<Integer> temp = new ArrayList<Integer>();
 	    String bin = new BigInteger(hex, 16).toString(2);
 	    for (int j = 0; j < bin.length(); j++) {
 	    	int c = Character.digit(bin.charAt(j), 10);
 	    		binarykey.add(c);
 	    }
-	    this.PermutationPc(pc1,binarykey,permutedkey);
-		this.SplitKey();
+	    Permutation perm1= new Permutation(pc1,binarykey);
+	    permutedkey = perm1.PermutationPc(0);
+	    
+	    System.out.println(permutedkey.size());
+	    
+	    Permutation perm2= new Permutation(pc2,permutedkey);
+	    K1 = perm2.PermutationPc(1);
+	    
 	}
 	
-	public void PermutationPc(List<Integer> pc,List<Integer> originalkey, List<Integer> editedkey) {
-		for(int i=0;i<pc.size(); i++) {
-			editedkey.add(originalkey.get(pc.get(i)-1));
-		}
-	}
+//	public void PermutationPc(List<Integer> pc,List<Integer> originalkey, List<Integer> editedkey) {
+//		for(int i=0;i<pc.size(); i++) {
+//			editedkey.add(originalkey.get(pc.get(i)-1));
+//		}
+//	}
 	
-	public void SplitKey() {
-		for(int i=0;i<(permutedkey.size()/2); i++) {
-			Leftkey.add(permutedkey.get(i));
-		}
-		this.Rotation(Leftkey);
-		for( int i=(permutedkey.size()/2); i<permutedkey.size(); i++) {
-			Rightkey.add(permutedkey.get(i));
-		}
-		System.out.println(Rightkey);
-		this.Rotation(Rightkey);
-		
-		permutedkey.clear();
-		permutedkey.addAll(Leftkey);
-		permutedkey.addAll(Rightkey);
-		this.PermutationPc(pc2, permutedkey, K1);
-	}
+//	public void SplitKey() {
+//		for(int i=0;i<(permutedkey.size()/2); i++) {
+//			Leftkey.add(permutedkey.get(i));
+//		}
+//		this.Rotation(Leftkey);
+//		for( int i=(permutedkey.size()/2); i<permutedkey.size(); i++) {
+//			Rightkey.add(permutedkey.get(i));
+//		}
+//		System.out.println(Rightkey);
+//		this.Rotation(Rightkey);
+//		
+//		permutedkey.clear();
+//		permutedkey.addAll(Leftkey);
+//		permutedkey.addAll(Rightkey);
+//		this.PermutationPc(pc2, permutedkey, K1);
+//	}
 	
-	public void Rotation(List<Integer> key) {
-		int temp1,temp2,temp3,temp4;
-		temp1= key.get(0);
-		temp2= key.get(7);
-		temp3= key.get(14);
-		temp4= key.get(21);
-		key.remove(0);
-		key.add(6, temp2);
-		key.remove(7);
-		key.add(13, temp3);
-		key.remove(14);
-		key.add(20, temp4);
-		key.remove(21);
-		key.add(27, temp1);
-	}
+//	public void Rotation(List<Integer> key) {
+//		int temp1,temp2,temp3,temp4;
+//		temp1= key.get(0);
+//		temp2= key.get(7);
+//		temp3= key.get(14);
+//		temp4= key.get(21);
+//		key.remove(0);
+//		key.add(6, temp2);
+//		key.remove(7);
+//		key.add(13, temp3);
+//		key.remove(14);
+//		key.add(20, temp4);
+//		key.remove(21);
+//		key.add(27, temp1);
+//	}
 	
 	
 	
@@ -91,11 +98,7 @@ public class Key {
 		System.out.println(key);
 		this.hexToBinary(key);
 		//System.out.println(binarykey);
-		//System.out.println(permutedkey);
-		
-		System.out.println("Left key : " +Leftkey);
-		System.out.println("Rightkey : " +Rightkey);
-		System.out.println(permutedkey);
+		System.out.println(permutedkey.size() +" Key after pc1 permutation: " +permutedkey);
 		System.out.println("K1: " +K1);
 	}
 	
