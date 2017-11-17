@@ -10,6 +10,8 @@ public class Key {
 	
 	public static List<Integer> binarykey = new ArrayList<Integer>();
 	public static List<Integer> permutedkey = new ArrayList<Integer>();
+	public static List<Integer> Leftkey = new ArrayList<Integer>();
+	public static List<Integer> Rightkey = new ArrayList<Integer>();
 	
 	public Key(String key){
 		this.key = key;
@@ -23,13 +25,13 @@ public class Key {
     			21, 13, 5, 28, 20, 12, 4));
 	}
 	
-	public String hexToBinary(String hex) {
+	public void hexToBinary(String hex) {
 	    String bin = new BigInteger(hex, 16).toString(2);
 	    for (int j = 0; j < bin.length(); j++) {
 	    	int c = Character.digit(bin.charAt(j), 10);
 	    		binarykey.add(c);
 	    }
-	    return bin;
+	    this.PermutationPc1();
 	}
 	
 //	public void DeleteParityBit() {
@@ -40,9 +42,19 @@ public class Key {
 //		}
 //	}
 	
-	public void Permutation() {
+	public void PermutationPc1() {
 		for(int i=0;i<pc1.size(); i++) {
 			permutedkey.add(binarykey.get(pc1.get(i)-1));
+		}
+		this.SplitKey();
+	}
+	
+	public void SplitKey() {
+		for(int i=0;i<(permutedkey.size()/2); i++) {
+			Leftkey.add(permutedkey.get(i));
+		}
+		for( int i=(permutedkey.size()/2); i<permutedkey.size(); i++) {
+			Rightkey.add(permutedkey.get(i));
 		}
 	}
 	
@@ -52,8 +64,10 @@ public class Key {
 		System.out.println(key);
 		this.hexToBinary(key);
 		System.out.println(binarykey);
-		this.Permutation();
+		this.PermutationPc1();
 		System.out.println(permutedkey);
+		System.out.println(Leftkey);
+		System.out.println(Rightkey);
 	}
 	
 }
