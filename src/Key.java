@@ -34,72 +34,25 @@ public class Key {
 				44, 49, 39, 56, 34, 53,
 				46, 42, 50, 36, 29, 32
 				));
+		this.hexToBinary(key);
 	}
 	
 	public void hexToBinary(String hex) {
-		List<Integer> temp = new ArrayList<Integer>();
 	    String bin = new BigInteger(hex, 16).toString(2);
 	    for (int j = 0; j < bin.length(); j++) {
 	    	int c = Character.digit(bin.charAt(j), 10);
 	    		binarykey.add(c);
 	    }
+	    while(binarykey.size()<64) {
+	    	binarykey.add(0, 0);
+	    }
+	    System.out.println("Binarykey and size :" + binarykey + "  " + binarykey.size());
 	    Permutation perm1= new Permutation(pc1,binarykey);
-	    permutedkey = perm1.PermutationPc(0);
-	    
-	    System.out.println(permutedkey.size());
-	    
-	    Permutation perm2= new Permutation(pc2,permutedkey);
-	    K1 = perm2.PermutationPc(1);
-	    
-	}
-	
-//	public void PermutationPc(List<Integer> pc,List<Integer> originalkey, List<Integer> editedkey) {
-//		for(int i=0;i<pc.size(); i++) {
-//			editedkey.add(originalkey.get(pc.get(i)-1));
-//		}
-//	}
-	
-//	public void SplitKey() {
-//		for(int i=0;i<(permutedkey.size()/2); i++) {
-//			Leftkey.add(permutedkey.get(i));
-//		}
-//		this.Rotation(Leftkey);
-//		for( int i=(permutedkey.size()/2); i<permutedkey.size(); i++) {
-//			Rightkey.add(permutedkey.get(i));
-//		}
-//		System.out.println(Rightkey);
-//		this.Rotation(Rightkey);
-//		
-//		permutedkey.clear();
-//		permutedkey.addAll(Leftkey);
-//		permutedkey.addAll(Rightkey);
-//		this.PermutationPc(pc2, permutedkey, K1);
-//	}
-	
-//	public void Rotation(List<Integer> key) {
-//		int temp1,temp2,temp3,temp4;
-//		temp1= key.get(0);
-//		temp2= key.get(7);
-//		temp3= key.get(14);
-//		temp4= key.get(21);
-//		key.remove(0);
-//		key.add(6, temp2);
-//		key.remove(7);
-//		key.add(13, temp3);
-//		key.remove(14);
-//		key.add(20, temp4);
-//		key.remove(21);
-//		key.add(27, temp1);
-//	}
-	
-	
-	
-	public void getpc1() {
-		System.out.println(key);
-		this.hexToBinary(key);
-		//System.out.println(binarykey);
-		System.out.println(permutedkey.size() +" Key after pc1 permutation: " +permutedkey);
-		System.out.println("K1: " +K1);
+	    	perm1.PermutationPc1();
+	   // permutedkey = perm1.PermutationPc(0);
+	   // System.out.println("Permutedkey after pc-1 and size :" + permutedkey + "  " + permutedkey.size());
+	   // Permutation perm2= new Permutation(pc2,permutedkey);
+	   // K1 = perm2.PermutationPc(1);
 	}
 	
 }
