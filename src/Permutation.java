@@ -61,7 +61,7 @@ public class Permutation {
 	
 	public void PermutationPc2(int number) {
 		for(int i=0;i<pc2.size(); i++) {
-			editedkey.get(number).add(LeftRightkey.get(pc2.get(i)-1));
+			editedkey.get(number).add(LeftRightkey.get(number).get(pc2.get(i)-1));
 		}
 		System.out.println(editedkey.get(number).GetName() + ": "+ editedkey.get(number));
 	}
