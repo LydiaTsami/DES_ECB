@@ -83,8 +83,8 @@ public class UserInterface {
 				plaintext= txt_plaintext.getText();
 				key = txt_key.getText();
 				Key newkey = new Key(key);
-				newkey.getpc1();
-				//Text newtext = new Text(plaintext);
+				newkey.binarykey.clear();
+				Text newtext = new Text(plaintext,newkey);
 				
 			}
 		});
