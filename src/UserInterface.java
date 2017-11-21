@@ -55,8 +55,7 @@ public class UserInterface {
 		frame.getContentPane().setLayout(null);
 		
 		txt_plaintext = new JTextField();
-		//txt_plaintext.setText("TSAMILYD");
-		txt_plaintext.setText("0123456789ABCDEF");
+		txt_plaintext.setText("TSAMILYD");
 		txt_plaintext.setBounds(160, 85, 130, 22);
 		frame.getContentPane().add(txt_plaintext);
 		txt_plaintext.setColumns(10);
@@ -73,8 +72,7 @@ public class UserInterface {
 		frame.getContentPane().add(lblKey);
 		
 		txt_key = new JTextField();
-		//txt_key.setText("F46E986435465354");
-		txt_key.setText("133457799BBCDFF1");
+		txt_key.setText("F46E986435465354");
 		txt_key.setBounds(160, 114, 130, 22);
 		frame.getContentPane().add(txt_key);
 		txt_key.setColumns(10);

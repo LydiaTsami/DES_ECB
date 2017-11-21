@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -153,36 +154,28 @@ public class Text {
 	}
 	
 	public void texttobytes() {
-//		byte[] bytes = plaintext.getBytes();
-//		  StringBuilder binary = new StringBuilder();
-//		  for (byte b : bytes)
-//		  {
-//		     int val = b;
-//		     for (int i = 0; i < 8; i++)
-//		     {
-//		        binary.append((val & 128) == 0 ? 0 : 1);
-//		        val <<= 1;
-//		     }
-//		     binary.append(' ');
-//		  }
-//		for (int j = 0; j < binary.length(); j++) {
-//	    	int c = Character.digit(binary.charAt(j), 10);
-//	    	if(c!=-1)
-//	    		binarytext.add(c);
-//	    }
-		binarytext.addAll(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 1,
-				0, 0, 1, 0, 0, 0, 1, 1,
-				0, 1, 0, 0, 0, 1, 0, 1, 
-				0, 1, 1, 0, 0, 1, 1, 1, 
-				1, 0, 0, 0, 1, 0, 0, 1, 
-				1, 0, 1, 0, 1, 0, 1, 1, 
-				1, 1, 0, 0, 1, 1, 0, 1, 
-				1, 1, 1, 0, 1, 1, 1, 1));
+		byte[] bytes = plaintext.getBytes();
+		  StringBuilder binary = new StringBuilder();
+		  for (byte b : bytes)
+		  {
+		     int val = b;
+		     for (int i = 0; i < 8; i++)
+		     {
+		        binary.append((val & 128) == 0 ? 0 : 1);
+		        val <<= 1;
+		     }
+		     binary.append(' ');
+		  }
+		for (int j = 0; j < binary.length(); j++) {
+	    	int c = Character.digit(binary.charAt(j), 10);
+	    	if(c!=-1)
+	    		binarytext.add(c);
+	    }
 		System.out.println("Binary text: " +binarytext + " size: " + binarytext.size());
 	}
 	
 	public void SplitText() {
-		int temp;
+		int temp,decimal;
 		String text="";
 		List<Integer> temp1 = new ArrayList<Integer>();
 		for(int i=0;i<(permutedtext.size()/2); i++) {
@@ -206,7 +199,6 @@ public class Text {
 				temp = (int)key.K.get(i).get(j) ^ (int)ER.get(i-1).get(j);
 				temp1.add(temp);
 			}
-			System.out.println("temp1: " +temp1 + " size: " + temp1.size());
 			B.add(temp1.get(0));
 			for(int k=1 ; k <temp1.size() ; k++) {
 				if(k%6!=0) {
@@ -231,26 +223,34 @@ public class Text {
 		}
 		RL16.addAll(R.get(16));
 		RL16.addAll(L.get(16));
-		System.out.println(RL16);
+		System.out.println("R16L16: " +RL16);
 		Permutation(RL16,IPtext, ip_1);
-		System.out.println("IP-1 : " + IPtext);
-//		for(int i=0;i<IPtext.size();i++) {
-//			text = IPtext.get(i).toString() + text;
-//		}
-//		System.out.println("text: " + text);
-//		int hextext = Integer.parseInt(text,2);
-//		String hexStr = Integer.toString(hextext,16);
-//		System.out.println(hexStr);
-		
-		
-		
+		System.out.println("IP-1 : " + IPtext + " size: " + IPtext.size());
+		String alltext="";
+		text = IPtext.get(0).toString();
+		for(int i=1;i<IPtext.size();i++) {
+			if(i%4!=0) {
+				text += IPtext.get(i).toString();
+			}
+			else {
+				decimal = Integer.parseInt(text,2);
+				String hexStr = Integer.toString(decimal,16);
+				alltext += hexStr;
+				text = IPtext.get(i).toString();
+				
+			}
+		}
+		decimal = Integer.parseInt(text,2);
+		String hexStr = Integer.toString(decimal,16);
+		alltext += hexStr;
+		System.out.println("Encrypted text: " +alltext.toUpperCase());
+			
 	}
 	
 	public List<Integer> CalculateSB(int index) {
 		int row,col,listindex,binary;
 		String bin;
 		String rowcol;
-		System.out.println(B);
 		sbsmall.clear();
 		
 		rowcol= "";
@@ -264,9 +264,7 @@ public class Text {
 		rowcol += B.get(3).toString();
 		rowcol += B.get(4).toString();
 		col = Integer.parseInt(rowcol,2);
-//		System.out.println("Row: " + row + " Col: " +col);
 		listindex = 16*row + col;
-		System.out.println("sindex: "+ index);
 		binary = (Integer)sBoxes.get(index).get(listindex);
 		bin = Integer.toBinaryString(binary);
 		while(bin.length()<4) {
