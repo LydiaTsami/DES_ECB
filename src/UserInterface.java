@@ -86,7 +86,7 @@ public class UserInterface {
 				key = txt_key.getText();
 				Key newkey = new Key(key);
 				newkey.binarykey.clear();
-				//Text newtext = new Text(plaintext);
+				Text newtext = new Text(plaintext,newkey);
 				
 			}
 		});
